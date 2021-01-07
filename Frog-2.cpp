@@ -2,11 +2,11 @@
    Challenge : Codechef
 */
 
-#pragma GCC optimize("Ofast,unroll-loops") 
-#pragma GCC target("avx,avx2,fma") 
-#include <ext/pb_ds/assoc_container.hpp> 
-#include <ext/pb_ds/tree_policy.hpp> 
-using namespace __gnu_pbds; 
+#pragma GCC optimize("Ofast,unroll-loops")
+#pragma GCC target("avx,avx2,fma")
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -109,14 +109,15 @@ inline ll ceiling(ll n, ll x)
     return (n % x ? n / x + 1 : n / x);
 }
 
-vector<ll> preFix(vector<ll>a){
-    vector<ll>preSum(a.size(),0);
+vector<ll> preFix(vector<ll> a)
+{
+    vector<ll> preSum(a.size(), 0);
     preSum[0] = a[0];
-   for(ll i=1;i<a.size();++i){
-       preSum[i] = preSum[i-1] + a[i];
-   }
-   return preSum;
-   
+    for (ll i = 1; i < a.size(); ++i)
+    {
+        preSum[i] = preSum[i - 1] + a[i];
+    }
+    return preSum;
 }
 
 /****** Template of some basic operations *****/
@@ -174,31 +175,39 @@ inline T readInt()
     return n * s;
 }
 
-ll minLenSubArray(vector<ll>a, ll k ){
+ll minLenSubArray(vector<ll> a, ll k)
+{
     ll n = a.size();
-    unordered_map<ll,ll>counts;
-    counts[a[0]]=0;
-    for(ll i=1;i<n;++i){
-        a[i] = a[i]+a[i-1];
-        counts[a[i]]=i;
+    unordered_map<ll, ll> counts;
+    counts[a[0]] = 0;
+    for (ll i = 1; i < n; ++i)
+    {
+        a[i] = a[i] + a[i - 1];
+        counts[a[i]] = i;
     }
     ll len = INT_MAX;
-    for(ll i=0;i<n;++i){
-        if(a[i]<k)
-        continue;
-        else{
+    for (ll i = 0; i < n; ++i)
+    {
+        if (a[i] < k)
+            continue;
+        else
+        {
             ll x = a[i] - k;
-            
-            if(x==0){
-                len = min(len,i);
+
+            if (x == 0)
+            {
+                len = min(len, i);
             }
-            if(counts.find(x)==counts.end()){
+            if (counts.find(x) == counts.end())
+            {
                 continue;
-            }else{
-                len = min(len, i-counts[x]);
+            }
+            else
+            {
+                len = min(len, i - counts[x]);
             }
         }
-        cout<<endl;
+        cout << endl;
     }
     return len;
 }
@@ -246,24 +255,22 @@ private:
 void solve()
 {
 
-   ll n,k;
-   cin>>n>>k;
-   vector<ll>h= inp(n);
-   vector<ll>dp(n,INF);
-   dp[0]=0;
-   for(ll i=0;i<n;++i){
-       for(ll j=i+1;j<=i+k;++j){
-           if(j<n){
-               dp[j]=min(dp[j], abs(h[j] - h[i]) + dp[i]);
-           }
-       }
-   }
-   cout<<dp[n-1]<<endl;
-
-
-
-
-
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> h = inp(n);
+    vector<ll> dp(n, INF);
+    dp[0] = 0;
+    for (ll i = 0; i < n; ++i)
+    {
+        for (ll j = i + 1; j <= i + k; ++j)
+        {
+            if (j < n)
+            {
+                dp[j] = min(dp[j], abs(h[j] - h[i]) + dp[i]);
+            }
+        }
+    }
+    cout << dp[n - 1] << endl;
 }
 
 int main()
