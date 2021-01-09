@@ -255,21 +255,28 @@ private:
 void solve()
 {
 
-    ll n, k;
-    cin >> n >> k;
+    /*
+   Same as Frog 2, but with inner loop all the way to n instead 
+   of i+k 
+   same time complexity and space complexity
+   O(n^2) time
+   O(n) space;
+
+   */
+    ll n, c;
+    cin >> n >> c;
     vector<ll> h = inp(n);
     vector<ll> dp(n, INF);
     dp[0] = 0;
     for (ll i = 0; i < n; ++i)
     {
-        for (ll j = i + 1; j <= i + k; ++j)
+        for (ll j = i + 1; j < n; ++j)
         {
-            if (j < n)
-            {
-                dp[j] = min(dp[j], abs(h[j] - h[i]) + dp[i]);
-            }
+            //    cout << (ll)(pow(h[i] - h[j], 2) + c) + dp[i]<<endl;
+            dp[j] = min((ll)dp[j], (ll)(pow(h[i] - h[j], 2) + c) + dp[i]);
         }
     }
+
     cout << dp[n - 1] << endl;
 }
 
